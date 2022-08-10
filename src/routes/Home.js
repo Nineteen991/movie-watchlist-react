@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import searchIcon from '../images/Icon.png'
+
 const MovieSearchForm = styled.form`
   grid-column: 2 / 3;
   margin: -5% 0;
@@ -14,7 +16,7 @@ const MovieSearchInput = styled.input`
   width: 90%;
   padding: 1rem 3.3rem;
   border-radius: 6px 0 0 6px;
-  background: url("./images/Icon.png") no-repeat 1rem center;
+  background: url("${searchIcon}") no-repeat 1rem center;
   background-color: white;
   outline: none;
 `
@@ -29,7 +31,7 @@ export default function Home() {
   return (
     <>
       <MovieSearchForm>
-        <MovieSearchInput />
+        <MovieSearchInput placeholder='Search for a movie' />
         <MovieSearchBtn>Search</MovieSearchBtn>
       </MovieSearchForm>
     </>
