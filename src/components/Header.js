@@ -9,9 +9,6 @@ const HeaderBg = styled.header`
   width: 100%;
   background-color: #0E0E0E;
   position: relative;
-
-  display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
 `
 
 const HeaderPic = styled.div`
@@ -22,6 +19,9 @@ const HeaderPic = styled.div`
   left: 0;
   background: url(${backgroundImg}) center no-repeat;
   background-size: cover;
+
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
 `
 
 const HeaderTitleDiv = styled.div`
@@ -31,25 +31,31 @@ const HeaderTitleDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   color: white;
-  z-index: 100;
 `
 
 export default function Header() {
   const loc = useLocation()
   
-  const styles = {color: 'white', cursor: 'pointer'}
+  const styles = {
+    color: 'white', 
+    cursor: 'pointer', 
+    fontSize: '1.6rem',
+    textDecoration: 'none'
+  }
+
   return (
     <HeaderBg>
-      <HeaderPic />
-      <HeaderTitleDiv>
-        <h1>Find your film</h1>
-        {/* Toggle the link from Home to Watchlist */}
-        {
-          loc.pathname === '/watchlist'
-            ? <Link to='/' style={styles}>Home</Link>
-            : <Link to='/watchlist' style={styles}>Watchlist</Link>
-        }
-      </HeaderTitleDiv>
+      <HeaderPic>
+        <HeaderTitleDiv>
+          <h1>Find your film</h1>
+          {/* Toggle the link from Home to Watchlist */}
+          {
+            loc.pathname === '/watchlist'
+              ? <Link to='/' style={styles}>Home</Link>
+              : <Link to='/watchlist' style={styles}>Watchlist</Link>
+          }
+        </HeaderTitleDiv>
+      </HeaderPic>
     </HeaderBg>
   )
 }

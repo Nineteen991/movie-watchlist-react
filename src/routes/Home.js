@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import searchIcon from '../images/Icon.png'
-import filmIcon from '../images/Icon-film.png'
+import { 
+  WatchlistBtn, 
+  renderMovieCard, 
+  emptyWatchlist 
+} from '../styles/MovieCard'
 
 const MovieSearchForm = styled.form`
   grid-column: 2 / 3;
@@ -21,42 +25,38 @@ const MovieSearchInput = styled.input`
   background: url("${searchIcon}") no-repeat 1rem center;
   background-color: white;
   outline: none;
+  @media screen and (max-width: 50rem) {
+    width: 80%;
+  }
 `
 
 const MovieSearchBtn = styled.button`
   height: 4rem;
   width: 10%;
   border-radius: 0 6px 6px 0;
+  @media screen and (max-width: 50rem) {
+    width: 20%;
+  }
 `
 
-const EmptyMovieDiv = styled.div`
-  grid-column: 2 / 3;
-  background: url("${filmIcon}") no-repeat center;
-  /* height: 73vh; */
-  list-style: none;
-  margin-top: 3%;
+export default function Home({renderMovie, setRenderMovie, setWatchlist}) {
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const MovieCard = styled.div`
-  grid-column: 2 / 3;
-  height: 25vh;
-  width: 100%;
-  background-color: white;
-  display: flex;
-  align-items: center;
-`
-
-export default function Home({renderMovie, setRenderMovie}) {
   const [inputValue, setInputValue] = useState('')
   const [movie, setMovie] = useState('')
 
   function getMovie(e) {
     e.preventDefault()
-    setMovie(e.target.children[0].value)
+    setMovie(inputValue)
+    setInputValue(e.target.reset())
+  }
+
+  function addToWatchlist() {
+    setWatchlist(prev => (
+      [
+        ...prev,
+        renderMovie
+      ]
+    ))
   }
 
   useEffect(() => {
@@ -64,7 +64,15 @@ export default function Home({renderMovie, setRenderMovie}) {
       .then(res => res.json())
       .then(data => setRenderMovie(data))
   }, [movie])
-console.log(renderMovie)
+
+  const addBtn = (
+    <WatchlistBtn onClick={() => addToWatchlist()}>
+      <i>Add to Watchlist</i>
+    </WatchlistBtn>
+  )
+
+ const msg = <h3>Start exploring</h3>
+
   return (
     <>
       <MovieSearchForm onSubmit={(e) => getMovie(e)}>
@@ -77,8 +85,8 @@ console.log(renderMovie)
       </MovieSearchForm>
       {
         movie 
-          ? <MovieCard></MovieCard>
-          : <EmptyMovieDiv><h4>Start exploring</h4></EmptyMovieDiv>
+          ? renderMovieCard(renderMovie, addBtn)
+          : emptyWatchlist(msg)
       }
     </>
   )

@@ -3,15 +3,12 @@
 *::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --color-gray: #aaa;
+  box-sizing: inherit;
 }
 
 html {
   font-size: 62.5%;
+  box-sizing: border-box;
 }
 
 #root {
@@ -29,12 +26,3 @@ h3 {
   color: #DFDDDD;
   margin-top: 10rem;
 }
-
-a {
-  text-decoration: none;
-  font-size: 1.6rem;
-}
-
-/*************************************************************************
-                                  Header
-*************************************************************************/
