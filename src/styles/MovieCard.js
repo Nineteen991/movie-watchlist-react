@@ -37,6 +37,10 @@ export const MovieData = styled.h4`
 export const WatchlistBtn = styled.p`
   color: black;
   cursor: pointer;
+
+  &:hover {
+    color: red;
+  }
 `
 
 export const MovieDesc = styled.p`
